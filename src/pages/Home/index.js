@@ -13,7 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const { last } = useData()
   return <>
     <header>
       <Menu />
@@ -116,6 +116,8 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+        {/* Log the value of last?.cover to debug
+        {console.log("Image URL:", last?.cover)} */}
         <EventCard
           imageSrc={last?.cover}
           title={last?.title}
