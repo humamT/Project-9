@@ -14,9 +14,9 @@ const EventList = () => {
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const articles = data?.events.filter( // new
+  const articles = data?data.events.filter( // new
     (article) => type ? article.type === type : true // new
-  )
+  ):[]
   // console.log("articles", articles)
   // console.log("type", type)
 

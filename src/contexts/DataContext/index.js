@@ -22,21 +22,6 @@ export const DataProvider = ({ children }) => {
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
-
-      // Find the most recent event
-      const lastEvent = fetchedData.events?.reduce((latest, event) => {
-        const eventDate = new Date(event.date);
-        return eventDate > new Date(latest.date) ? event : latest;
-      }, fetchedData.events[0]);
-
-      console.log("Last Event:", lastEvent);
-
-      setData({
-        ...fetchedData,
-        last: lastEvent, // Add 'last' to the data object
-      });
-
-
     } catch (err) {
       setError(err);
     }
@@ -46,10 +31,15 @@ export const DataProvider = ({ children }) => {
     getData();
   });
 
+  const sortData = data?.events?.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  const last = sortData ? sortData[0] : null
+  console.log("sortData", sortData)
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
+        last,
         data,
         error,
       }}
